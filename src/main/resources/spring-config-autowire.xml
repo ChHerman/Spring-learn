@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--配置master对象-->
+    <bean id="master" class="com.hc.spring.autowire.Master" autowire="constructor">
+        <property name="name" value="sjt"></property>
+        <!--传统方式-->
+        <!--<property name="dog" ref="dog"></property>-->
+    </bean>
+
+    <!--配置dog对象，byName时使用-->
+    <!--<bean id="dog" class="com.nuc.autowire.Dog">-->
+    <!--<property name="name" value="小黄"></property>-->
+    <!--<property name="age" value="2"></property>-->
+    <!--</bean>-->
+
+    <!--配置dog对象，byType时使用-->
+    <!--<bean id="dog11" class="com.nuc.autowire.Dog">-->
+    <!--<property name="name" value="小黄"></property>-->
+    <!--<property name="age" value="2"></property>-->
+    <!--</bean>-->
+
+    <!--配置dog对象，constructor时使用，同时只能配置一个Dog-->
+<!--    <bean id="dog22" class="com.hc.spring.autowire.Dog">
+        <property name="name" value="小黄"></property>
+        <property name="age" value="2"></property>
+    </bean>-->
+    <bean id="dog23" class="com.hc.spring.autowire.Dog">
+        <property name="name" value="小绿"></property>
+        <property name="age" value="2"></property>
+    </bean>
+</beans>

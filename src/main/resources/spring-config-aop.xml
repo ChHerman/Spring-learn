@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--配置被代理的对象-->
+    <bean id="testService" class="com.hc.spring.aop.TestService">
+        <property name="name" value="sjt"/>
+    </bean>
+    <!--配置前置通知-->
+    <bean id="myMethodBeforeAdvice" class="com.hc.spring.aop.MyMethodBeforeAdvice"></bean>
+    <!--配置后置通知-->
+    <bean id="myAfterReturningAdvice" class="com.hc.spring.aop.MyAfterReturningAdvice"></bean>
+    <!--配置环绕通知-->
+    <bean id="myMethodInterceptor" class="com.hc.spring.aop.MyMethodInterceptor"></bean>
+    <!--配置异常通知-->
+    <bean id="myThrowsAdvice" class="com.hc.spring.aop.MyThrowsAdvice"></bean>
+    <!--定义前置通知的切入点（引用通知）-->
+    <bean id="myMethodBeforeAdviceFilter" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="advice" ref="myMethodBeforeAdvice"></property>
+        <property name="mappedNames">
+            <list>
+                <!--这里支持使用正则表达式匹配-->
+                <!--配置了sayHello使用前置通知过滤-->
+                <value>sayHello</value>
+            </list>
+        </property>
+    </bean>
+    <!--配置代理对象-->
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--配置代理接口-->
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.hc.spring.aop.TestServiceInter</value>
+                <value>com.hc.spring.aop.TestServiceInter2</value>
+            </list>
+        </property>
+        <!--把通知织入到代理对象-->
+        <property name="interceptorNames">
+            <list>
+                <!--相当于把myMethodBeforeAdvice前置通知和代理对象关联起来-->
+                <!--使用自定义切入点-->
+                <value>myMethodBeforeAdviceFilter</value>
+                <!--织入后置通知-->
+                <value>myAfterReturningAdvice</value>
+                <!--织入环绕通知-->
+                <value>myMethodInterceptor</value>
+                <!--织入异常通知-->
+                <value>myThrowsAdvice</value>
+            </list>
+        </property>
+        <!--配置被代理对象,可以指定-->
+        <property name="target" ref="testService"></property>
+    </bean>
+</beans>

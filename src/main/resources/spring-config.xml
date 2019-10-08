@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean name="user" class="com.hc.spring.bean.User">
+        <property name="name">
+            <value>小王</value>
+        </property>
+        <property name="user2" ref="user2"/>
+    </bean>
+    <bean name="user2" class="com.hc.spring.bean.User2">
+        <property name="name" value="小李"/>
+    </bean>
+    <bean name="lowerLetter" class="com.hc.spring.impBean.LowerLetter" scope="prototype">
+        <property name="str" value="UpperLower"/>
+    </bean>
+    <bean name="upperLetter" class="com.hc.spring.impBean.UpperLetter">
+        <property name="str" value="UpperLower"/>
+    </bean>
+    <bean id="personService" init-method="init" destroy-method="destroy" scope="singleton" class="com.hc.spring.beanLife.PersonService">
+        <property name="name" value="sjt"></property>
+    </bean>
+    <bean id="personService2" class="com.hc.spring.beanLife.PersonService">
+        <property name="name" value="sjt2"></property>
+    </bean>
+    <!--配置自己的后置处理器，优点类似filter-->
+    <bean id="myBeanPostProcessor" class="com.hc.spring.beanLife.MyBeanPostProcessor">
+
+    </bean>
+</beans>
